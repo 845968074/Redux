@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redux basic example</title>
+    <script src="https://npmcdn.com/redux@latest/dist/redux.min.js"></script>
+</head>
+<body>
+<div>
+    <p>
+        Clicked: <span id="value"></span>
+        <button id='西安'>button1</button>
+        <button id='欢迎你'>button2</button>
+        <button id='回民街'>button3</button>
+        <button  id='欢迎你们'>button4</button>
+    </p>
+</div>
+<script>
+    function counter(state,action) {
+        if(typeof state==='undefined') return "Hello World!";
+        switch (action.type)
+        {
+            case '西安':return "西安";
+            case  '欢迎你':return "欢迎你";
+            case '回民街':return "回民街";
+            case  '欢迎你们':return "欢迎你们";
+            default : return "Hello World!";
+        }
+    }
+    var  store=Redux.createStore(counter);
+    var valueEl=document.getElementById('value');
+    function render() {
+        valueEl.innerHTML=store.getState().toString();
+    }
+    render();
+    store.subscribe(render);
+    document.getElementById('西安')
+            .addEventListener('click', function () {
+                store.dispatch({ type: '西安' })
+            });
+    document.getElementById('欢迎你')
+            .addEventListener('click', function () {
+                store.dispatch({ type: '欢迎你' })
+            });
+    document.getElementById('回民街')
+            .addEventListener('click', function () {
+                if (store.getState() % 2 !== 0) {
+                    store.dispatch({ type: '回民街' })
+                }
+            });
+    document.getElementById('欢迎你们')
+            .addEventListener('click', function () {
+                setTimeout(function () {
+                    store.dispatch({ type: '欢迎你们' })
+                }, 1000)
+            })
+</script>
+</body>
+</html>
